@@ -1,14 +1,33 @@
+import { useState, useEffect } from "react";
 import { BentoCard } from "../BentoGrid";
 import { MapPin, Briefcase, Download } from "lucide-react";
 import { DynamicTypist } from "../DynamicTypist";
+import { supabase } from "../../lib/supabase";
 
-/**
- * ProfileCard displays an overview of the user including name, location,
- * current employer, and a dynamic typing animation for professional roles.
- */
 export function ProfileCard() {
+    const [resumeUrl, setResumeUrl] = useState('/resume.pdf');
+
+    useEffect(() => {
+        async function fetchResume() {
+            const { data, error } = await supabase
+                .from('settings')
+                .select('value')
+                .eq('key', 'resume_url')
+                .single();
+            if (!error && data) {
+                setResumeUrl(data.value);
+            }
+        }
+        fetchResume();
+    }, []);
+
+
     return (
-        <BentoCard className="col-span-1 md:col-span-6 lg:col-span-4 row-span-2 bg-secondary/50 flex flex-col justify-start" delay={0.1}>
+        <BentoCard
+            className="col-span-1 md:col-span-6 lg:col-span-4 row-span-2 bg-secondary/50 flex flex-col justify-start"
+            delay={0.1}
+            hoverGradient="radial-gradient(ellipse at 15% 15%, rgba(66,133,244,0.11) 0%, transparent 65%)"
+        >
             <div className="flex justify-between items-start">
                 <span className="inline-flex items-center px-3 py-1 bg-background rounded-full border shadow-sm text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     About me
@@ -48,7 +67,7 @@ export function ProfileCard() {
 
                 <div className="mt-auto pt-6">
                     <a
-                        href="/resume.pdf"
+                        href={resumeUrl}
                         download="Sujith_Jayachandran_Resume.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
