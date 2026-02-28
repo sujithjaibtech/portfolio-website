@@ -8,7 +8,11 @@ import GitHubCalendar from "react-github-calendar";
  */
 export function GithubContributionCard() {
     return (
-        <BentoCard className="col-span-1 md:col-span-12 lg:col-span-4 row-span-2 flex flex-col justify-start overflow-hidden group cursor-pointer" delay={0.3}>
+        <BentoCard
+            className="col-span-1 md:col-span-12 lg:col-span-4 row-span-2 flex flex-col justify-start overflow-hidden group cursor-pointer"
+            delay={0.3}
+            hoverGradient="radial-gradient(ellipse at 50% 10%, rgba(103,58,183,0.09) 0%, transparent 65%)"
+        >
             <div className="flex justify-between items-start">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-background rounded-full border shadow-sm text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     <Github size={14} /> GitHub

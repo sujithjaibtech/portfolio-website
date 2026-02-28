@@ -7,7 +7,11 @@ import { GraduationCap } from "lucide-react";
  */
 export function EducationCard() {
     return (
-        <BentoCard className="col-span-1 md:col-span-6 lg:col-span-3 row-span-2 flex flex-col justify-start" delay={0.4}>
+        <BentoCard
+            className="col-span-1 md:col-span-6 lg:col-span-3 row-span-2 flex flex-col justify-start"
+            delay={0.4}
+            hoverGradient="radial-gradient(ellipse at 20% 80%, rgba(251,188,5,0.11) 0%, transparent 60%)"
+        >
             <div className="flex justify-between items-start mb-6">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-background rounded-full border shadow-sm text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     <GraduationCap size={14} /> Education

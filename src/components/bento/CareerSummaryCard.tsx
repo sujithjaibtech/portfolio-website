@@ -6,7 +6,11 @@ import { BentoCard } from "../BentoGrid";
  */
 export function CareerSummaryCard() {
     return (
-        <BentoCard className="col-span-1 md:col-span-6 lg:col-span-4 row-span-2 flex flex-col justify-start" delay={0.2}>
+        <BentoCard
+            className="col-span-1 md:col-span-6 lg:col-span-4 row-span-2 flex flex-col justify-start"
+            delay={0.2}
+            hoverGradient="radial-gradient(ellipse at 85% 85%, rgba(52,168,83,0.10) 0%, transparent 65%)"
+        >
             <div className="flex justify-start items-start mb-6">
                 <span className="inline-flex items-center px-3 py-1 bg-background rounded-full border shadow-sm text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Career Summary

@@ -6,29 +6,47 @@ interface BentoCardProps extends React.HTMLAttributes<HTMLDivElement> {
     className?: string;
     /** Delay (in seconds) before the card's fade-in-up animation starts. */
     delay?: number;
+    /**
+     * Optional CSS gradient string applied as a full-bleed overlay on hover.
+     * Example: "radial-gradient(ellipse at 10% 10%, rgba(66,133,244,0.10) 0%, transparent 65%)"
+     * Keep opacity values between 0.05–0.12 for a subtle, elegant look.
+     */
+    hoverGradient?: string;
 }
 
 /**
  * BentoCard is the base card component for the bento grid layout.
  * It applies a consistent rounded card shell with a subtle entry animation.
  * All HTML div attributes (including event handlers) are forwarded via spread props.
+ * When a `hoverGradient` is supplied, a soft color wash fades in on mouse-over.
  */
-export function BentoCard({ children, className, delay = 0, ...props }: BentoCardProps) {
+export function BentoCard({ children, className, delay = 0, hoverGradient, ...props }: BentoCardProps) {
     return (
         <div
             {...props}
             className={cn(
-                "relative flex flex-col justify-between overflow-hidden rounded-3xl bg-card border shadow-sm p-6 hover:shadow-md transition-shadow duration-300",
+                "group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-card border shadow-sm p-6 hover:shadow-md transition-shadow duration-300",
                 className
             )}
             style={{
                 animation: `fade-in-up 0.5s ease-out ${delay}s both`,
             }}
         >
-            {children}
+            {/* Gradient hover overlay — fades in on card hover */}
+            {hoverGradient && (
+                <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out pointer-events-none rounded-3xl z-0"
+                    style={{ background: hoverGradient }}
+                />
+            )}
+            {/* Card content sits above the gradient overlay */}
+            <div className="relative z-10 flex flex-col h-full">
+                {children}
+            </div>
         </div>
     );
 }
+
 
 /**
  * BentoGrid is the responsive 12-column grid container that wraps all bento cards.
